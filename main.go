@@ -17,7 +17,10 @@ func main() {
 	}
 
 	r1.HandleFunc("/stocks", handlers.CreateStock).Methods("POST")
-	r1.HandleFunc("/stocks/id", handlers.GetStock).Methods("GET")
+	r1.HandleFunc("/stocks/{id}", handlers.GetStock).Methods("GET")
+	r1.HandleFunc("/stocks", handlers.GetAllStocks).Methods("GET")
+	r1.HandleFunc("/stocks/update/{id}", handlers.Updatestock).Methods("POST")
+	r1.HandleFunc("/stocks/delete/{id}", handlers.DeleteStock).Methods("DELETE")
 
 	println("Server starting on the port 8080....")
 

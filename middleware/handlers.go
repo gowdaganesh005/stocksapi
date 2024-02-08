@@ -57,7 +57,7 @@ func GetStock(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
-		log.Printf("Error parsing  the request id  :", err)
+		log.Println("Error parsing  the request id  :", err)
 
 	}
 	stock := getstock(int64(id))
@@ -77,7 +77,7 @@ func Updatestock(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.Atoi(params["id"])
 	if err != nil {
-		log.Printf("Error parsing the request  id :", err)
+		log.Println("Error parsing the request  id :", err)
 
 	}
 	var stock models.Stock
@@ -95,6 +95,18 @@ func Updatestock(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res)
 
 }
-func UpdateStock(w http.ResponseWriter, r *http.Request) {
+func DeleteStock(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, err := strconv.Atoi(params["id"])
+	if err != nil {
+		log.Println("error parsing request id:", err)
+
+	}
+	deleterows := deletestock(int64(id))
+	res := response{
+		ID:      id,
+		Message: fmt.Sprint("Deleted the row successfully total row deleted:", deleterows),
+	}
+	json.NewEncoder(w).Encode(res)
 
 }
